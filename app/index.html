@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es" class="mode-choose">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, viewport-fit=cover">
+<title>CactusNet TV</title>
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+
+<!-- ============ PRIMER INICIO: ELEGIR MODO ============ -->
+<div id="chooser" class="screen hidden">
+  <div class="chooser-box">
+    <img class="cn-logo" src="img/cactusnet.svg" alt="CactusNet">
+    <div class="chooser-q">¿Dónde vas a usar CactusNet TV?</div>
+    <div class="chooser-opts">
+      <div class="opt f" data-mode="mobile">
+        <svg viewBox="0 0 24 24"><path d="M7 2h10a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm0 3v13h10V5zm4 14.5h2v1.2h-2z"/></svg>
+        <div class="opt-t">Celular o tablet</div>
+        <div class="opt-d">Pantalla táctil</div>
+      </div>
+      <div class="opt f" data-mode="tv">
+        <svg viewBox="0 0 24 24"><path d="M3 4h18a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zm0 2v10h18V6zM7 20h10v2H7z"/></svg>
+        <div class="opt-t">Televisor</div>
+        <div class="opt-d">Control remoto</div>
+      </div>
+    </div>
+    <div class="chooser-hint">Podrás cambiarlo después en Ajustes.</div>
+  </div>
+</div>
+
+<!-- ============ LOGIN ============ -->
+<div id="login" class="screen hidden">
+  <div class="login-box">
+    <img class="cn-logo" src="img/cactusnet.svg" alt="CactusNet">
+    <div class="login-sub">Ingresa con el usuario y la contraseña de tu servicio.</div>
+    <label>Usuario<input id="xUser" class="f" type="text" autocomplete="off" autocapitalize="none" spellcheck="false"></label>
+    <label>Contraseña<input id="xPass" class="f" type="password" autocomplete="off"></label>
+    <div id="btnConnect" class="btn f">Entrar</div>
+    <div id="loginMsg" class="msg"></div>
+    <div class="login-hint tv-only">Usa las flechas del control y OK para escribir en cada campo.</div>
+  </div>
+</div>
+
+<!-- ============ NAVEGADOR ============ -->
+<div id="browser" class="screen hidden">
+  <div class="mtop">
+    <img class="mlogo" src="img/cactusnet.svg" alt="CactusNet">
+    <div class="mclock" id="mclock"></div>
+  </div>
+  <div class="col col-sec">
+    <img class="cn-side" src="img/cactusnet.svg" alt="CactusNet">
+    <div class="list" id="listSec"></div>
+    <div class="clock" id="clock"></div>
+  </div>
+  <div class="col col-cat">
+    <div class="col-title" id="catsTitle">Categorías</div>
+    <div class="list" id="listCats"></div>
+  </div>
+  <div class="col col-items">
+    <div class="col-title" id="itemsTitle"></div>
+    <div class="list" id="listItems"></div>
+    <div class="empty hidden" id="itemsEmpty"></div>
+  </div>
+  <div class="hintbar">
+    <span><i class="k ok">OK</i> Abrir</span>
+    <span><i class="k red"></i> Favorito</span>
+    <span><i class="k">CH ▲▼</i> Saltar 10</span>
+    <span><i class="k">ATRÁS</i> Volver</span>
+  </div>
+</div>
+
+<!-- ============ REPRODUCTOR ============ -->
+<div id="player" class="screen hidden">
+  <video id="video" preload="auto" playsinline webkit-playsinline poster="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></video>
+  <div id="spinner" class="spinner hidden"></div>
+  <div id="playerMsg" class="player-msg"></div>
+  <!-- lista de canales sobre el video (no detiene lo que se está viendo) -->
+  <div id="chList" class="chlist hidden">
+    <div class="chl-head">
+      <div class="chl-arrow" id="chlPrev">&#8249;</div>
+      <div class="chl-cat" id="chlCat"></div>
+      <div class="chl-arrow" id="chlNext">&#8250;</div>
+      <div class="chl-close" id="chlClose">&#10005;</div>
+    </div>
+    <div class="chl-items" id="chlItems"></div>
+    <div class="chl-hint tv-only">&#9650;&#9660; Elegir &#183; OK Ver &#183; &#9664; &#9654; Categoría &#183; ATRÁS Cerrar</div>
+  </div>
+  <div id="osd" class="osd hidden">
+    <div class="osd-top">
+      <span id="osdNum" class="osd-num"></span>
+      <span id="osdName" class="osd-name"></span>
+      <span id="osdFav" class="osd-fav"></span>
+      <span id="osdClock" class="osd-clock"></span>
+    </div>
+    <div id="osdSub" class="osd-sub"></div>
+    <div id="osdEngine" class="osd-engine"></div>
+    <div id="osdProgress" class="osd-progress hidden">
+      <span id="osdCur">0:00</span>
+      <div class="bar" id="osdBarWrap"><div id="osdBar"></div></div>
+      <span id="osdDur">0:00</span>
+    </div>
+    <div id="osdHint" class="osd-hint"></div>
+    <!-- controles táctiles (solo modo móvil) -->
+    <div class="mctl">
+      <div class="mb" id="mBack"><svg viewBox="0 0 24 24"><path d="M20 11H7.8l5.6-5.6L12 4l-8 8 8 8 1.4-1.4L7.8 13H20z"/></svg></div>
+      <div class="mb" id="mPrev"><svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6L18 18V6z"/></svg></div>
+      <div class="mb big" id="mPlay"><svg viewBox="0 0 24 24"><path id="mPlayIc" d="M6 5h4v14H6zm8 0h4v14h-4z"/></svg></div>
+      <div class="mb" id="mNext"><svg viewBox="0 0 24 24"><path d="M16 6h2v12h-2zM6 18l8.5-6L6 6z"/></svg></div>
+      <div class="mb" id="mFav"><svg viewBox="0 0 24 24"><path d="M12 17.3l6.2 3.7-1.6-7 5.4-4.7-7.1-.6L12 2 9.1 8.7 2 9.3l5.4 4.7-1.6 7z"/></svg></div>
+      <div class="mb" id="mList"><svg viewBox="0 0 24 24"><path d="M3 5h2v2H3zm4 0h14v2H7zM3 11h2v2H3zm4 0h14v2H7zm-4 6h2v2H3zm4 0h14v2H7z"/></svg></div>
+      <div class="mb" id="mLang"><svg viewBox="0 0 24 24"><path d="M12.87 15.07l-2.54-2.51.03-.03A17.52 17.52 0 0014.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z"/></svg></div>
+      <div class="mb" id="mPip"><svg viewBox="0 0 24 24"><path d="M19 11h-8v6h8zm4 8V5c0-1.1-.9-2-2-2H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2zm-2 0H3V5h18z"/></svg></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ VENTANA: PIN / RECUPERACIÓN / AVISOS ============ -->
+<div id="modal" class="modal hidden">
+  <div class="modal-box">
+    <div id="mTitle" class="m-title"></div>
+    <div id="mText" class="m-text"></div>
+    <div id="mCode" class="m-code hidden"></div>
+    <div id="mDots" class="m-dots hidden"><span></span><span></span><span></span><span></span></div>
+    <input id="mInput" class="f m-input hidden" type="text" maxlength="9" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="XXXX-XXXX">
+    <div id="mPad" class="m-pad hidden"></div>
+    <div id="mErr" class="m-err"></div>
+    <div id="mBtns" class="m-btns"></div>
+  </div>
+</div>
+
+<div id="loading" class="loading hidden"><img class="cn-load" src="img/cactusnet.svg" alt="CactusNet"><div class="spinner"></div><div id="loadingText">Cargando…</div></div>
+<div id="toast" class="toast hidden"></div>
+
+<script>window.CACTUS_BOOT = {"build": 18, "repo": "ecantillo229/cactustv-lg", "scripts": ["lib/hls.min.js", "js/sha256.js", "js/sources.js", "js/app.js"]};</script>
+<script src="platform/boot.js"></script>
+</body>
+</html>

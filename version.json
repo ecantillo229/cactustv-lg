@@ -1,0 +1,28 @@
+{
+  "versionCode": 18,
+  "versionName": "1.5.0",
+  "tag": "v1.5.0",
+  "styles": [
+    "css/app.css"
+  ],
+  "scripts": [
+    "lib/hls.min.js",
+    "js/sha256.js",
+    "js/sources.js",
+    "js/app.js"
+  ],
+  "history": [
+    {
+      "versionCode": 18,
+      "versionName": "1.5.0",
+      "changes": [
+        "Mismas funciones que la app Android: último canal al abrir, favoritos, lista de canales sin cortar el video.",
+        "Canales para adultos ocultos; se muestran solo con el interruptor de Ajustes, que pide el PIN (con código de recuperación).",
+        "Mensajes claros cuando no hay internet o no hay conexión con CactusNet, y cuando un canal no está disponible.",
+        "Cambio de idioma y subtítulos, y menú de opciones con ◀ ▶.",
+        "La app se identifica como CactusNet TV ante el servidor.",
+        "Se actualiza sola desde GitHub."
+      ]
+    }
+  ]
+}
